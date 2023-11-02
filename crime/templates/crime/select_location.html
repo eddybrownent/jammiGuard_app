@@ -1,0 +1,54 @@
+<!-- select_location.html -->
+{% extends "crime/base.html" %}
+{% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<div id="map" style="height: 100vh;"></div>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([-1.038921781851376, 37.083836734420956], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var marker;
+    map.on('click', function(e) {
+        var useLocation = window.confirm("Use this location?");
+        if (useLocation) {
+            if (marker) {
+                // Remove the old marker
+                map.removeLayer(marker);
+            }
+            
+            // Create a new marker at the clicked location
+            marker = L.marker(e.latlng).addTo(map);
+            
+            // Store the selected latitude and longitude in JavaScript variables
+            var selectedLatitude = e.latlng.lat;
+            var selectedLongitude = e.latlng.lng;
+
+            // Create a hidden form for latitude and longitude
+            var hiddenForm = document.createElement('form');
+            hiddenForm.action = "{% url 'add_crime_incident' %}";
+            hiddenForm.method = "GET";
+
+            var latitudeInput = document.createElement('input');
+            latitudeInput.type = 'hidden';
+            latitudeInput.name = 'latitude';
+            latitudeInput.value = selectedLatitude;
+            hiddenForm.appendChild(latitudeInput);
+
+            var longitudeInput = document.createElement('input');
+            longitudeInput.type = 'hidden';
+            longitudeInput.name = 'longitude';
+            longitudeInput.value = selectedLongitude;
+            hiddenForm.appendChild(longitudeInput);
+
+            // Append the hidden form to the body and submit it
+            document.body.appendChild(hiddenForm);
+            hiddenForm.submit();
+        }
+    });
+</script>
+{% endblock %}

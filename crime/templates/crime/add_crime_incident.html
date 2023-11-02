@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'crime/main.css' %}">
+    <title>jammiGuard</title>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+              <img src="/static/crime/images/jammiGuard_logo.png" width="200" height="45">
+              </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" class="container-fluid">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="/">Home</a>
+                <a class="nav-item nav-link" href="/about">About</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{% url 'profile' %}">profile</a>
+                  <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else%}
+                  <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                  <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+<div class="container-fluid border">
+    <h1 class="mt-5">Welcome! Report an Incident</h1>
+    <div class="row mt-4">
+        <div class="col-lg-12">
+            <p>Select the location where the incident occurred, and let's make our community safer together. Your input is invaluable in enhancing security.</p>
+            <p>Select a location to auto-fill Latitude and Longitude.
+            </p>
+            <a href="{% url 'select_location' %}" class="btn btn-primary">Select Location</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-6">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <input type="hidden" name="latitude" id="latitude" value="{{ latitude }}" required>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="longitude" id="longitude" value="{{ longitude }}" required>
+                </div>
+
+                {{ form.as_p }}
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    <p>Thank you for your contribution to jammiGuard. Your commitment to making our neighborhood a better place is greatly appreciated.</p>
+</div> 
+</body>

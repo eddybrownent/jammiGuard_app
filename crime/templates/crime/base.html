@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'crime/main.css' %}">
+    {% if title %}
+    <title>jammiGuard - {{ title }} </title>
+    {% else %}
+        <title>jammiGuard</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand mr-4" href="/">
+              <img src="/static/crime/images/jammiGuard_logo.png" width="200" height="45">
+              </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" class="container-fluid">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="/">Home</a>
+                <a class="nav-item nav-link" href="/about">About</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{% url 'add_crime_incident' %}">Report A Crime</a>
+                  <a class="nav-item nav-link" href="{% url 'profile' %}">profile</a>
+                  <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else%}
+                  <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                  <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main role="main" class="container-fluid border">
+        <div class="row">
+          <div class="col-8">
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif%}
+            {% block content %}{% endblock %}
+          </div>
+          <div class="col">
+            <div class="content-section">
+              <h3>Welcome To jammiGuard</h3>
+              <p class="text-muted">
+                <!-- Modify or add content as needed -->
+                {% if user.is_authenticated %}
+                <p>Help To Locate MoRe Crimes By Filling Our ReportCrimePage</p>
+        
+                {% else%}
+                <p>Your Kenyan Safety Partner..</p>
+                <p>Explore and contribute to our community safety by reporting incidents, sharing information, and making a difference. Together, we shape the data that empowers our community.</p>
+                <ul class="list-group">
+                  <p>Report More Incidents In Your Area <a class="btn btn-outline-primary" href="/register" disabled>Register</a></p>
+                </ul>
+                {% endif %}
+              </p>
+              <h3>New Crimes Reported!</h3>
+              <ul class="list-group">
+                  <!-- Add your latest crime data here -->
+                  {% for crime in latest_crimes %}
+                      <li class="list-group-item list-group-item-light">
+                          {{ crime.crimetype }} - {{ crime.location }}
+                      </li>
+                  {% endfor %}
+                  <p>
+                    <h3>Trends in Crime: An Overview of Reported Incidents Over Time</h3>
+                  </p>
+                  <div class="card text-bg-dark" style="max-width: 600rem;">
+                    <img src="static/crime/images/stacked_area_chart.png" class="card-img" alt="Compossition Of Crimes By Type Over Time">
+                    <div class="card-body">
+                      <p>Location With Highest Number Of Crimes ({{ highest_crime_location }})
+                      Highest Crime Count Reported ({{ highest_crime_count}})
+                      </p>
+                    </div>
+                  </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

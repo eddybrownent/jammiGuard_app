@@ -1,0 +1,74 @@
+{% extends "crime/base.html" %}
+{% block content %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
+    <style>
+        .custom-cluster-icon {
+            background: red; /* Set the background color to red */
+            border-radius: 50%; /* Make the icon circular */
+            text-align: center;
+            line-height: 40px; /* Adjust the line height to center the count */
+            color: white; /* Set the text color to white */
+            font-weight: bold;
+            opacity: 0.3;
+        }
+    </style>
+    <div id="map" style="height: 100vh; width: auto;"></div>
+    <div id="crime-data" data-crime="{{ crime_data|safe }}"></div>
+    <script>
+        var map = L.map('map').setView([-1.038921781851376, 37.083836734420956], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var crime_data = {{ crime_data|safe }};
+
+        // Create a marker cluster group
+        var markers = L.markerClusterGroup({
+            iconCreateFunction: function (cluster) {
+                return L.divIcon({
+                    className: 'custom-cluster-icon',
+                    html: '<div class="cluster-circle">' + cluster.getChildCount() + '</div>',
+                    iconSize: [50, 50] // Adjust the size as needed
+                });
+            }
+        });
+
+        // Loop through the crime data and add markers to the cluster group
+        crime_data.forEach(function (crime) {
+            var marker = L.marker([crime.latitude, crime.longitude]);
+            var popupContent = `<strong>${crime.crime_type}</strong><a href="${crime.crime_details_url}">More Details</a>`;
+            marker.bindPopup(popupContent);
+            markers.addLayer(marker);
+        });
+
+        // Add the marker cluster group to the map
+        map.addLayer(markers);
+
+        // Add search control
+        var searchControl = L.Control.geocoder({
+        }).addTo(map);
+
+        // Add search functionality
+        document.getElementById('search-button').addEventListener('click', function () {
+            var location = document.getElementById('location-input').value;
+            searchControl.geocode(location, function (results) {
+                if (results.length > 0) {
+                    var latLng = results[0].center;
+                    map.setView(latLng, 15);
+                } else {
+                    alert('Location not found');
+                }
+            });
+        });
+    </script>
+</style>
+{% endblock content %}
+

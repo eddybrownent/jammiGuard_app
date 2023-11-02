@@ -1,0 +1,9 @@
+{% extends "crime/base.html" %}
+{% block content %}
+    <div class="border-top pt-3">
+        <h2  class="mt-5">You Have Been Logged Out</h2>
+        <small class="text-muted">
+            <a href="{% url 'login' %}">Log In Again</a>
+        </small>
+    </div>
+{% endblock content %}
