@@ -72,3 +72,20 @@ body {
     margin-top: 20px;
     color: black
 }
+
+.content-section {
+  background-color: rgb(73, 132, 134);
+}
+
+.content-section p,
+.content-section h1,
+.content-section h2,
+.content-section h3
+{
+    color: whitesmoke;
+}
+
+/* custom.css */
+.custom-background-color {
+  background-color: rgb(73, 132, 134); /* Replace with the color of your choice */
+}

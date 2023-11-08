@@ -13,12 +13,12 @@
         <title>jammiGuard</title>
     {% endif %}
 </head>
-<body>
+<body class="custom-background-color">
     <header class="site-header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container-fluid">
             <a class="navbar-brand mr-4" href="/">
-              <img src="/static/crime/images/jammiGuard_logo.png" width="200" height="45">
+              <img src="/static/crime/images/jammiGuard_logo14.png" width="200" height="45">
               </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" class="container-fluid">
             <span class="navbar-toggler-icon"></span>
@@ -43,21 +43,25 @@
           </div>
         </nav>
       </header>
-{% load crispy_forms_tags %}
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join today</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Sign Up</button>
-            </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign in</a>
-            </small>
-        </div>
-    </div>
+      {% load crispy_forms_tags %}
+      <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+          <div class="card">
+              <div class="card-body">
+                  <form method="POST">
+                      {% csrf_token %}
+                      <fieldset class="form-group">
+                          <legend class="mb-4">Join today</legend>
+                          {{ form|crispy }}
+                      </fieldset>
+                      <div class="form-group">
+                          <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                      </div>
+                  </form>
+                  <div class="pt-3">
+                      <small class="text-muted">
+                          Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign in</a>
+                      </small>
+                  </div>
+              </div>
+          </div>
+      </div>

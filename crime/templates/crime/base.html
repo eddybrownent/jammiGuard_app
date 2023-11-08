@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container-fluid">
             <a class="navbar-brand mr-4" href="/">
-              <img src="/static/crime/images/jammiGuard_logo.png" width="200" height="45">
+              <img src="/static/crime/images/jammiGuard_logo14.png" width="100" height="35">
               </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" class="container-fluid">
             <span class="navbar-toggler-icon"></span>
@@ -43,19 +43,23 @@
           </div>
         </nav>
       </header>
-      <main role="main" class="container-fluid border">
+      <main role="main" class="container-fluid border bg-dark">
         <div class="row">
-          <div class="col-8">
-            {% if messages %}
-              {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif%}
+          <div class="col-12 col-lg-8">
             {% block content %}{% endblock %}
+            </br >
+            <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">How to Use the Interactive Map</h5>
+                  <ol>
+                      <li>Click on a custom icon on the map to view information about a specific crime incident. ✅</li>
+                      <li>Use the search bar to find a specific location and center the map on it. 🔍</li>
+                      <li>Zoom in and out to explore different areas and incidents. 🕵</li>
+                  </ol>
+              </div>
+          </div>          
           </div>
-          <div class="col">
+          <div class="col-12 col-lg-4">
             <div class="content-section">
               <h3>Welcome To jammiGuard</h3>
               <p class="text-muted">
@@ -65,30 +69,48 @@
         
                 {% else%}
                 <p>Your Kenyan Safety Partner..</p>
-                <p>Explore and contribute to our community safety by reporting incidents, sharing information, and making a difference. Together, we shape the data that empowers our community.</p>
-                <ul class="list-group">
-                  <p>Report More Incidents In Your Area <a class="btn btn-outline-primary" href="/register" disabled>Register</a></p>
-                </ul>
+                <p>Contribute to our community safety by reporting incidents and sharing information. Together, we shape the data that empowers our community.</p>
+                  <a class="btn btn-outline-light" href="/register" disabled>Sign up</a>
                 {% endif %}
               </p>
-              <h3>New Crimes Reported!</h3>
-              <ul class="list-group">
-                  <!-- Add your latest crime data here -->
-                  {% for crime in latest_crimes %}
-                      <li class="list-group-item list-group-item-light">
-                          {{ crime.crimetype }} - {{ crime.location }}
-                      </li>
-                  {% endfor %}
-                  <p>
-                    <h3>Trends in Crime: An Overview of Reported Incidents Over Time</h3>
-                  </p>
-                  <div class="card text-bg-dark" style="max-width: 600rem;">
-                    <img src="static/crime/images/stacked_area_chart.png" class="card-img" alt="Compossition Of Crimes By Type Over Time">
-                    <div class="card-body">
-                      <p>Location With Highest Number Of Crimes ({{ highest_crime_location }})
-                      Highest Crime Count Reported ({{ highest_crime_count}})
-                      </p>
+              <h3>Lately Reported Incidents</h3>
+              <div class="card text-bg-dark" style="max-width: 500px;">
+                <div class="card-body">
+                    <img src="static/crime/images/crime.jpg" class="card-img" alt="Composition Of Crimes By Type Over Time">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-numbered">
+                                <!-- Add your latest crime data here (e.g., crimes 1-4) -->
+                                {% for crime in latest_crimes%}
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">{{ crime.crimetype }}</div>
+                                            {{ crime.location }}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group">
+                                <!-- Add your latest crime data here (e.g., crimes 5-8) -->
+                                    <li class="list-item d-flex">
+                                      <p>Location With Highest Crimes ({{ highest_crime_location }})</p>
+                                    </li>
+                                  <li>
+                                    <p>With ({{ highest_crime_count}}) Reported Crimes</p>
+                                  </li>
+                                  <li>
+                                    <p>({{most_reported_crime_in_highest_location}}) Being Most Reported Crime</p>
+                                  </li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
+            </div>                      
+                  <h3>Reported Incidents Over Time</h3>
+                  <div class="card text-bg-dark">
+                    <img src="static/crime/images/stacked_area_chart.png" class="card-img" alt="Compossition Of Crimes By Type Over Time">
                   </div>
               </ul>
             </div>

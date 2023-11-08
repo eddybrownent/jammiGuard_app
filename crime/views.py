@@ -12,14 +12,17 @@ def home(request):
     # Query the CrimeIncidents model to get all crime incidents
     crime_data = []
     plot_data = []
-    location_crime_counts = Crimeincidents.objects.values('location').annotate(crime_count=Count('location')).order_by('-crime_count')
-    
+    location_crime_counts = Crimeincidents.objects.values('location').annotate(crime_count=Count('incidentid')).order_by('-crime_count')
     if location_crime_counts:
         highest_crime_location = location_crime_counts[0]['location']
         highest_crime_count = location_crime_counts[0]['crime_count']
+        # Now, query the most reported crime type in the location with the highest crimes
+        most_reported_crime_in_highest_location = Crimeincidents.objects.filter(location=highest_crime_location) \
+            .values('crimetype').annotate(crimetype_count=Count('crimetype')).order_by('-crimetype_count')[0]['crimetype']
     else:
         highest_crime_location = "No data available"
         highest_crime_count = 0
+        most_reported_crime_in_highest_location = "N/A"
     
         # Query the data and group by time intervals (e.g., months) and crime types
     plot_data = Crimeincidents.objects.annotate(
@@ -67,6 +70,7 @@ def home(request):
         'crime_count': crime_count,
         'crime_data': crime_data,
         'latest_crimes': latest_crimes,
+        'most_reported_crime_in_highest_location': most_reported_crime_in_highest_location,
         'highest_crime_location': highest_crime_location,
         'highest_crime_count': highest_crime_count,
         'plot_data': plot_data,

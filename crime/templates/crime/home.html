@@ -1,25 +1,14 @@
 {% extends "crime/base.html" %}
 {% block content %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
     <style>
-        .custom-cluster-icon {
-            background: red; /* Set the background color to red */
-            border-radius: 50%; /* Make the icon circular */
-            text-align: center;
-            line-height: 40px; /* Adjust the line height to center the count */
-            color: white; /* Set the text color to white */
-            font-weight: bold;
-            opacity: 0.3;
-        }
     </style>
-    <div id="map" style="height: 100vh; width: auto;"></div>
-    <div id="crime-data" data-crime="{{ crime_data|safe }}"></div>
+    <div id="map"></div>
+    <div id="crime-data" data-crime="{{ crime_data|safe }}">
+    </div>
     <script>
         var map = L.map('map').setView([-1.038921781851376, 37.083836734420956], 15);
 
@@ -29,28 +18,70 @@
         }).addTo(map);
 
         var crime_data = {{ crime_data|safe }};
+        
+        // Define custom icons for different crime types
+        var icons = {
+            Burglary: L.icon({
+                iconUrl: '/static/crime/images/heist.png',
+                iconSize: [50, 50],
+            }),
+            Arrest: L.icon({
+                iconUrl: '/static/crime/images/handcuffs.png',
+                iconSize: [50, 50],
+            }),
+            Assault: L.icon({
+                iconUrl: '/static/crime/images/conflict.png',
+                iconSize: [50, 50],
+            }),
+            Other: L.icon({
+                iconUrl: '/static/crime/images/crime-scene.png',
+                iconSize: [50, 50],
+            }),
+            Vandalism: L.icon({
+                iconUrl: '/static/crime/images/man.png',
+                iconSize: [50, 50],
+            }),
+            phone_Theft: L.icon({
+                iconUrl: '/static/crime/images/phone.png',
+                iconSize: [70, 70],
+            }),
+            Theft: L.icon({
+                iconUrl: '/static/crime/images/thief.png',
+                iconSize: [50, 50],
+            }),
+            Gun_crime: L.icon({
+                iconUrl: '/static/crime/images/guns.png',
+                iconSize: [50, 50],
+            }),
+            Fraud: L.icon({
+                iconUrl: '/static/crime/images/fake.png',
+                iconSize: [50, 50],
+            }),
+            Robbery: L.icon({
+                iconUrl: '/static/crime/images/robbery.png',
+                iconSize: [50, 50],
+            })
+    // Add more icons for other crime types as needed
+};
 
-        // Create a marker cluster group
-        var markers = L.markerClusterGroup({
-            iconCreateFunction: function (cluster) {
-                return L.divIcon({
-                    className: 'custom-cluster-icon',
-                    html: '<div class="cluster-circle">' + cluster.getChildCount() + '</div>',
-                    iconSize: [50, 50] // Adjust the size as needed
-                });
-            }
-        });
+// Loop through the crime data and add markers with custom icons to the cluster group
+// Loop through the crime data and add markers with custom icons to the map
+crime_data.forEach(function (crime) {
+    // Check if the crime type has a corresponding custom icon
+    if (icons.hasOwnProperty(crime.crime_type)) {
+        var marker = L.marker([crime.latitude, crime.longitude], { icon: icons[crime.crime_type] });
+        var popupContent = `<strong>${crime.crime_type}</strong><a href="${crime.crime_details_url}">Information</a>`;
+        marker.bindPopup(popupContent);
+        marker.addTo(map);
+    } else {
+        // Use a default marker if the crime type doesn't have a custom icon
+        var defaultMarker = L.marker([crime.latitude, crime.longitude]);
+        var popupContent = `<strong>${crime.crime_type}</strong><a href="${crime.crime_details_url}">More Information</a>`;
+        defaultMarker.bindPopup(popupContent);
+        defaultMarker.addTo(map);
+    }
+});
 
-        // Loop through the crime data and add markers to the cluster group
-        crime_data.forEach(function (crime) {
-            var marker = L.marker([crime.latitude, crime.longitude]);
-            var popupContent = `<strong>${crime.crime_type}</strong><a href="${crime.crime_details_url}">More Details</a>`;
-            marker.bindPopup(popupContent);
-            markers.addLayer(marker);
-        });
-
-        // Add the marker cluster group to the map
-        map.addLayer(markers);
 
         // Add search control
         var searchControl = L.Control.geocoder({

@@ -13,12 +13,12 @@
         <title>jammiGuard</title>
     {% endif %}
 </head>
-<body>
+<body class="custom-background-color">
     <header class="site-header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container-fluid">
             <a class="navbar-brand mr-4" href="/">
-              <img src="/static/crime/images/jammiGuard_logo.png" width="200" height="45">
+              <img src="/static/crime/images/jammiGuard_logo14.png" width="200" height="45">
               </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" class="container-fluid">
             <span class="navbar-toggler-icon"></span>
@@ -51,11 +51,14 @@
 <body>
     <div class="container">
         <br />
-    <h1>Crime Details</h1>
+    <div class="card text-bg-info">
+    <div class="card-body"></div>
+    <h3 class="card-header">Crime Details</h3>
     <p><strong>Crime Type:</strong> {{ crime_type }}</p>
     <p><strong>Description:</strong> {{ description }}</p>
     <p><strong>Date and Time:</strong> {{ datetime }}</p>
     <!-- Add more details as needed -->
+    </div>
 </div>
 </body>
 </html>

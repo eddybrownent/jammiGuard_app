@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'crime.apps.CrimeConfig',
     'users.apps.UsersConfig',
+    'landing_page.apps.LandingPageConfig',
     'crispy_forms',
     'crispy_bootstrap5',
     'django.contrib.admin',
