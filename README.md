@@ -12,7 +12,7 @@
 - [Contributing](#contributing)
 - [Licensing](#Licensing)
 
-![Alt Text](https://github.com/eddybrownent/jammiGuard_app/screenshots/FFSe.gif)
+![Alt Text](https://github.com/eddybrownent/jammiGuard_app/blob/main/screenshots/FFSe.gif)
 
 ## Description
 jammiGuard is a web application that empowers individuals to take an active role in enhancing neighborhood safety by providing real-time crime reporting and monitoring. Users can report incidents, and contribute to a safer neighborhood.
@@ -34,16 +34,16 @@ In essence, the motivation behind jammiGuard stems from a commitment to fosterin
 - Enhanced safety and crime prevention
 
 ## Register or Login to Report a crime Incidence
-![Alt Text](https://github.com/eddybrownent/jammiGuard_app/screenshots/Screenshot_2023-11-14_12-36-16.png)
+![Alt Text](https://github.com/eddybrownent/jammiGuard_app/blob/main/screenshots/Screenshot_2023-11-14_12-36-16.png)
 
 ## Report The Incidence
-![Alt Text](https://github.com/eddybrownent/jammiGuard_app/screenshots/Screenshot_2023-11-14_12-19-28.png)
+![Alt Text](https://github.com/eddybrownent/jammiGuard_app/blob/main/screenshots/Screenshot_2023-11-14_12-19-28.png)
 
 ## View Crimes On The Map
-![Alt Text](https://github.com/eddybrownent/jammiGuard_app/screenshots/Screenshot_2023-11-14_12-35-35.png)
+![Alt Text](https://github.com/eddybrownent/jammiGuard_app/blob/main/screenshots/Screenshot_2023-11-14_12-35-35.png)
 
 ## Draw Some Statistics From the Data On Map
-![Alt Text](https://github.com/eddybrownent/jammiGuard_app/screenshots/Screenshot_2023-11-14_12-37-20.png)
+![Alt Text](https://github.com/eddybrownent/jammiGuard_app/blob/main/screenshots/Screenshot_2023-11-14_12-37-20.png)
 
 ## Installation Instructions
 1. Clone the repository: `git clone https://github.com/eddybrownent/jammiGuard_app.git`
