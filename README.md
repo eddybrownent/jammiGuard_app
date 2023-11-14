@@ -23,7 +23,7 @@ jammiGuard is a web application that empowers individuals to take an active role
 
 "Inspiration struck 🌟 as I sought to create a project that would give back to the community. Contemplating the pressing issues faced by our neighborhood, particularly the rising concerns about security 🔒, I embarked on a journey of introspection. The concept for jammiGuard emerged from a profound desire to empower the community.
 
-Witnessing the surge in insecurities and recognizing the need for a collective approach to address them, I delved into the idea of creating a platform where community members could actively contribute. After careful consideration and thoughtful planning, jammiGuard was born. 🌈
+Witnessing the surge in insecurities and recognizing the need for a collective approach to address them, I delved into the idea of creating a platform where community members could actively contribute. After careful consideration and thoughtful planning, jammiGuard was born. 😀
 
 The project aims to harness the power of community collaboration by allowing individuals to share incidents and observations related to security. By providing a space for firsthand accounts, jammiGuard not only enhances overall community security awareness but also addresses the common challenge of crimes going unnoticed. 👀🚫
 
