@@ -19,7 +19,7 @@
 
         var crime_data = {{ crime_data|safe }};
         
-        // Define custom icons for different crime types
+        // custom icons for different crime types
         var icons = {
             Burglary: L.icon({
                 iconUrl: '/static/crime/images/heist.png',
@@ -61,10 +61,8 @@
                 iconUrl: '/static/crime/images/robbery.png',
                 iconSize: [50, 50],
             })
-    // Add more icons for other crime types as needed
 };
 
-// Loop through the crime data and add markers with custom icons to the cluster group
 // Loop through the crime data and add markers with custom icons to the map
 crime_data.forEach(function (crime) {
     // Check if the crime type has a corresponding custom icon

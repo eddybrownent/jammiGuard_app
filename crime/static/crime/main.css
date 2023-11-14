@@ -56,16 +56,7 @@ body {
   } 
 
 
-  .custom-cluster-icon {
-    background: red; /* Set the background color to red */
-    border-radius: 50%; /* Make the icon circular */
-    text-align: center;
-    line-height: 40px; /* Adjust the line height to center the count */
-    color: white; /* Set the text color to white */
-    font-weight: bold;
-    opacity: 0.3;
-}
-/* Style the welcome message */
+/* the welcome message */
 .welcome-message {
     text-align: center;
     font-size: 24px;
@@ -87,5 +78,5 @@ body {
 
 /* custom.css */
 .custom-background-color {
-  background-color: rgb(73, 132, 134); /* Replace with the color of your choice */
+  background-color: rgb(73, 132, 134); 
 }
